@@ -1,0 +1,115 @@
+Example 1: Reading from a File
+Description: This code reads the content of a file and prints it to the console.
+
+c
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char filename[] = "example.txt";
+    char ch;
+
+    file = fopen(filename, "r"); // Open file in read mode
+    if (file == NULL) {
+        printf("Error: Could not open file %s\n", filename);
+        return 1;
+    }
+
+    while ((ch = fgetc(file)) != EOF) {
+        putchar(ch);
+    }
+
+    fclose(file); // Close the file
+    return 0;
+}
+
+
+
+Example 2: Writing to a File
+Description: This code writes a string to a file.
+
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char filename[] = "output.txt";
+    char content[] = "Hello, world! This is a test.";
+
+    file = fopen(filename, "w"); // Open file in write mode
+    if (file == NULL) {
+        printf("Error: Could not open file %s\n", filename);
+        return 1;
+    }
+
+    fprintf(file, "%s\n", content); // Write the content to the file
+
+    fclose(file); // Close the file
+    printf("Data written to %s\n", filename);
+    return 0;
+}
+
+
+
+
+Example 3: Appending to a File
+Description: This code appends a string to the end of a file.
+
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char filename[] = "output.txt";
+    char content[] = "This is an appended line.";
+
+    file = fopen(filename, "a"); // Open file in append mode
+    if (file == NULL) {
+        printf("Error: Could not open file %s\n", filename);
+        return 1;
+    }
+
+    fprintf(file, "%s\n", content); // Append the content to the file
+
+    fclose(file); // Close the file
+    printf("Data appended to %s\n", filename);
+    return 0;
+}
+
+
+
+
+
+#include <stdio.h>
+
+int main() {
+    FILE *inputFile, *outputFile;
+    char inputFilename[] = "input.txt";
+    char outputFilename[] = "output.txt";
+    char ch;
+
+    // Open input file in read mode
+    inputFile = fopen(inputFilename, "r");
+    if (inputFile == NULL) {
+        printf("Error: Could not open file %s\n", inputFilename);
+        return 1;
+    }
+
+    // Open output file in write mode
+    outputFile = fopen(outputFilename, "w");
+    if (outputFile == NULL) {
+        printf("Error: Could not open file %s\n", outputFilename);
+        fclose(inputFile);
+        return 1;
+    }
+
+    // Read from input file and write to output file
+    while ((ch = fgetc(inputFile)) != EOF) {
+        fputc(ch, outputFile);
+    }
+
+    // Close the files
+    fclose(inputFile);
+    fclose(outputFile);
+
+    printf("Content copied from %s to %s\n", inputFilename, outputFilename);
+    return 0;
+}
