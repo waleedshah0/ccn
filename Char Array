@@ -1,0 +1,189 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main()
+{
+    int n, i;
+    char *arr;
+
+    printf("Enter number of characters to store: ");
+    scanf("%d", &n); //getting size
+
+    arr = (char*)malloc(n*sizeof(char));
+    printf("Enter the string: ");
+    for(i=0; i < n; i++)
+    {
+        scanf(" %c",arr+i); 
+    }
+    printf("\nThe string  entered is: \n\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("%c ", arr[i]);
+    }
+     printf("\The elements at index 2: %c ",arr[2]);
+    return 0;
+}
+
+
+
+
+Problem 1: Reverse a String
+Description: Write a function that takes a character array (string) as input and reverses it.
+
+c
+#include <stdio.h>
+#include <string.h>
+
+void reverseString(char str[]) {
+    int n = strlen(str);
+    for (int i = 0; i < n / 2; i++) {
+        char temp = str[i];
+        str[i] = str[n - i - 1];
+        str[n - i - 1] = temp;
+    }
+}
+
+int main() {
+    char str[] = "hello";
+    reverseString(str);
+    printf("Reversed string: %s\n", str);
+    return 0;
+}
+
+
+
+
+
+Problem 2: Check Palindrome
+Description: Write a function to check if a given character array (string) is a palindrome.
+
+c
+#include <stdio.h>
+#include <string.h>
+
+int isPalindrome(char str[]) {
+    int n = strlen(str);
+    for (int i = 0; i < n / 2; i++) {
+        if (str[i] != str[n - i - 1]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main() {
+    char str[] = "radar";
+    if (isPalindrome(str)) {
+        printf("%s is a palindrome\n", str);
+    } else {
+        printf("%s is not a palindrome\n", str);
+    }
+    return 0;
+}
+
+
+
+
+Problem 3: Count Vowels and Consonants
+Description: Write a function that counts the number of vowels and consonants in a given character array (string).
+
+c
+#include <stdio.h>
+
+void countVowelsAndConsonants(char str[], int *vowels, int *consonants) {
+    *vowels = *consonants = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        char ch = str[i];
+        if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ||
+            ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U') {
+            (*vowels)++;
+        } else if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+            (*consonants)++;
+        }
+    }
+}
+
+int main() {
+    char str[] = "Hello World";
+    int vowels, consonants;
+    countVowelsAndConsonants(str, &vowels, &consonants);
+    printf("Vowels: %d, Consonants: %d\n", vowels, consonants);
+    return 0;
+}
+
+
+
+
+
+Problem 4: Remove Duplicates
+Description: Write a function that removes duplicate characters from a given character array (string).
+
+#include <stdio.h>
+#include <string.h>
+
+void removeDuplicates(char str[]) {
+    int n = strlen(str);
+    if (n == 0) return;
+    int index = 0;
+    for (int i = 0; i < n; i++) {
+        int j;
+        for (j = 0; j < i; j++) {
+            if (str[i] == str[j]) {
+                break;
+            }
+        }
+        if (j == i) {
+            str[index++] = str[i];
+        }
+    }
+    str[index] = '\0';
+}
+
+int main() {
+    char str[] = "programming";
+    removeDuplicates(str);
+    printf("String after removing duplicates: %s\n", str);
+    return 0;
+}
+
+
+
+
+Problem 5: Find the Longest Word
+Description: Write a function that finds the longest word in a given character array (string).
+
+c
+#include <stdio.h>
+#include <string.h>
+
+void findLongestWord(char str[], char longest[]) {
+    int maxLength = 0, length = 0;
+    int start = 0, end = 0, longestStart = 0;
+    
+    while (str[end] != '\0') {
+        if (str[end] == ' ' || str[end + 1] == '\0') {
+            if (str[end + 1] == '\0') end++;
+            length = end - start;
+            if (length > maxLength) {
+                maxLength = length;
+                longestStart = start;
+            }
+            start = end + 1;
+        }
+        end++;
+    }
+    
+    for (int i = 0; i < maxLength; i++) {
+        longest[i] = str[longestStart + i];
+    }
+    longest[maxLength] = '\0';
+}
+
+int main() {
+    char str[] = "Find the longest word in this sentence";
+    char longest[50];
+    findLongestWord(str, longest);
+    printf("Longest word: %s\n", longest);
+    return 0;
+}
